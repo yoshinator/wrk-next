@@ -1,9 +1,19 @@
+import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
+
 const DashBoardPage = () => {
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Dashboard page content</p>
-    </div>
+    // <Box
+    //   sx={{
+    //     display: 'flex',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     height: '100%',
+    //   }}
+    // >
+    //   <CircularProgress size={80} />
+    // </Box>
+    null
   )
 }
 

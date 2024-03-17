@@ -6,6 +6,7 @@
   "extends": [
     "next/core-web-vitals",
     "eslint:recommended",
+    "plugin:import/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
@@ -26,6 +27,16 @@
     }
   ],
   "rules": {
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "react/display-name": "off",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/no-unescaped-entities": "off",
+    "react/prop-types": "off",
+    "simple-import-sort/exports": "error",
     "simple-import-sort/imports": [
       "error",
       {
@@ -50,17 +61,7 @@
         "ignoreCase": true,
         "noSortAlphabetically": false
       }
-    ],
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "react/display-name": "off",
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
-    "react/no-unescaped-entities": "off",
-    "react/prop-types": "off",
-    "simple-import-sort/exports": "error"
+    ]
   },
   "ignorePatterns": ["**/*.css", "CloudFunctions/**/*"]
 }

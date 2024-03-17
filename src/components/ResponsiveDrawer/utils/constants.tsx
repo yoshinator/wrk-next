@@ -15,8 +15,12 @@ export const listItems = [
     text: 'Auto Contact',
     icon: <EventRepeatIcon />,
     link: '/dashboard/auto-contact',
+  },
+  {
+    text: 'Profile',
+    icon: <AccountBoxIcon />,
+    link: '/dashboard/profile',
     divider: true,
   },
-  { text: 'Profile', icon: <AccountBoxIcon />, link: '/dashboard/profile' },
   { text: 'Settings', icon: <SettingsIcon />, link: '/dashboard/settings' },
 ]

@@ -1,33 +1,30 @@
 'use client'
-import { Fragment, useState } from 'react'
-import { usePathname } from 'next/navigation'
-import Link from 'next/link'
+import { useState } from 'react'
 
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import CssBaseline from '@mui/material/CssBaseline'
-import Divider from '@mui/material/Divider'
-import Drawer from '@mui/material/Drawer'
-import IconButton from '@mui/material/IconButton'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
+import {
+  AppBar,
+  Box,
+  Drawer,
+  IconButton,
+  Typography,
+  Toolbar,
+} from '@mui/material'
+
+import Image from 'next/image'
+
 import MenuIcon from '@mui/icons-material/Menu'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
 
-import { drawerWidth, listItems } from './constants'
+import { NavDrawer } from './components/NavDrawer'
+
+import { drawerWidth } from './utils/constants'
 
 interface Props {
   children: React.ReactNode
 }
 
-const ResponsiveDrawer: React.FC<Props> = ({ children }) => {
+export const ResponsiveDrawer: React.FC<Props> = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
-  const pathName = usePathname()
 
   const handleDrawerClose = () => {
     setIsClosing(true)
@@ -44,47 +41,18 @@ const ResponsiveDrawer: React.FC<Props> = ({ children }) => {
     }
   }
 
-  const drawer = (
-    <div>
-      <Toolbar />
-      <Box>
-        <List>
-          {listItems.map((item) => (
-            <Fragment key={item.text}>
-              <Link
-                href={item.link}
-                style={{ color: 'inherit', textDecoration: 'none' }}
-              >
-                <ListItem disablePadding>
-                  <ListItemButton
-                    component="span"
-                    selected={pathName === item.link}
-                  >
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.text} />
-                  </ListItemButton>
-                </ListItem>
-              </Link>
-              {item.divider && <Divider />}
-            </Fragment>
-          ))}
-        </List>
-      </Box>
-    </div>
-  )
-
   return (
     <>
       <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
         <AppBar
           position="fixed"
           sx={{
+            display: { sm: 'none' },
             width: { sm: `calc(100% - ${drawerWidth}px)` },
             ml: { sm: `${drawerWidth}px` },
           }}
         >
-          <Toolbar>
+          <Toolbar sx={{ display: 'flex' }}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -94,8 +62,9 @@ const ResponsiveDrawer: React.FC<Props> = ({ children }) => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div">
-              Responsive drawer
+            <Image alt="logo" height={40} src="/logo.svg" width={40} />
+            <Typography variant="h6" noWrap component="div" ml={2}>
+              Web Review Kit
             </Typography>
           </Toolbar>
         </AppBar>
@@ -120,7 +89,7 @@ const ResponsiveDrawer: React.FC<Props> = ({ children }) => {
               },
             }}
           >
-            {drawer}
+            <NavDrawer />
           </Drawer>
           <Drawer
             variant="permanent"
@@ -133,7 +102,7 @@ const ResponsiveDrawer: React.FC<Props> = ({ children }) => {
             }}
             open
           >
-            {drawer}
+            <NavDrawer />
           </Drawer>
         </Box>
         <Box mt={8} mx={1} px={1} width="100%" minHeight="calc(100vh - 64px)">
@@ -143,5 +112,3 @@ const ResponsiveDrawer: React.FC<Props> = ({ children }) => {
     </>
   )
 }
-
-export default ResponsiveDrawer
