@@ -1,7 +1,3 @@
-//write a script to generate types from the prisma schema. It should convert optional values to the type or undefined not null.
-// it should look in the prisma directory that is one level up from here. It should output the types to the src/types directory that is one level up from here.
-//if src/types does not exist, it should create it as src/types/index.ts
-// it should skipt values that have defaults like id and createdAt and updatedAt
 const fs = require('fs')
 const path = require('path')
 
@@ -14,10 +10,7 @@ if (!fs.existsSync(typesDir)) {
 }
 
 // Read the prisma schema file
-const prismaSchema = fs.readFileSync(
-  path.join(prismaDir, 'schema.prisma'),
-  'utf-8'
-)
+const prismaSchema = fs.readFileSync(path.join(prismaDir, 'schema.prisma'), 'utf-8')
 type PrismaType = 'String' | 'DateTime' | 'Boolean' | 'Int'
 type TypeScriptType = 'string' | 'Date' | 'boolean' | 'number'
 
@@ -58,11 +51,7 @@ function parseModel(modelStr: string): Field[] {
   const fields: Field[] = []
 
   lines.forEach((line) => {
-    if (
-      line.includes('@id') ||
-      line.trim().startsWith('//') ||
-      line.trim().startsWith('@')
-    ) {
+    if (line.includes('@id') || line.trim().startsWith('//') || line.trim().startsWith('@')) {
       return
     }
 
@@ -88,15 +77,10 @@ function parseModel(modelStr: string): Field[] {
   return fields
 }
 
-function generateTypeScriptInterface(
-  modelName: string,
-  fields: Field[]
-): string {
+function generateTypeScriptInterface(modelName: string, fields: Field[]): string {
   let interfaceStr = `export type ${modelName} = {\n`
   fields.forEach((field) => {
-    interfaceStr += `  ${field.name}${field.optional ? '?' : ''}: ${
-      field.type
-    };\n`
+    interfaceStr += `  ${field.name}${field.optional ? '?' : ''}: ${field.type};\n`
   })
   interfaceStr += '};\n'
   return interfaceStr
@@ -105,9 +89,7 @@ function generateTypeScriptInterface(
 function convertPrismaSchemaToTypeScript(schemaStr: string): string {
   const models = parseModels(schemaStr)
   return Object.entries(models)
-    .map(([modelName, fields]) =>
-      generateTypeScriptInterface(modelName, fields)
-    )
+    .map(([modelName, fields]) => generateTypeScriptInterface(modelName, fields))
     .join('\n')
 }
 
